@@ -20,19 +20,20 @@ namespace ImmerseAlert
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Thread.Sleep(2000);
+            ShowNestAuth();
             //ShowAlarm();
 
         }
 
         private static void ShowNestAuth()
         {
-
+            Application.Run(new NestAuthForm());
             //HttpWebRequest authReq =;
         }
 
         private static void ShowAlarm()
         {
+            Thread.Sleep(2000);
             //alarmActive = true;
             AlarmForm alarmForm = new AlarmForm();
             Application.Run(alarmForm);
