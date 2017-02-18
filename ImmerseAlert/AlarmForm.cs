@@ -18,8 +18,10 @@ namespace ImmerseAlert
         public AlarmForm()
         {
             InitializeComponent();
+
             Console.WriteLine("ALARM FORM STARTED");
             PlayAlarmSound();
+            //start thread forcing form to front
             keepFrontThread = new Thread(KeepFront);
             keepFrontThread.Start();
 
@@ -31,6 +33,9 @@ namespace ImmerseAlert
             alarmPlayer.PlayLooping();
         }
 
+        /// <summary>
+        /// Looped in new thread to periodically force form to front.
+        /// </summary>
         private void KeepFront()
         {
             while (true)
@@ -51,7 +56,11 @@ namespace ImmerseAlert
             }
         }
 
-        public void ForceToFront()
+        /// <summary>
+        /// Forces the form to the front.
+        /// Ugly, but necessary to ensure alarm is noticed.
+        /// </summary>
+        private void ForceToFront()
         {
             Console.WriteLine("Forcing Alarm to front");
             try
