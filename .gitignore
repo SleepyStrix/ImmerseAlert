@@ -254,4 +254,3 @@ paket-files/
 
 # SecretApiInfo
 *.secret.*
-NestApi.config
