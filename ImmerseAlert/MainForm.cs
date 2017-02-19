@@ -121,5 +121,10 @@ namespace ImmerseAlert
             ShowInTaskbar = true;
             notifyIcon1.Visible = false;
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.EndProgram();
+        }
     }
 }

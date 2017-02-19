@@ -174,6 +174,7 @@
             this.Controls.Add(this.armToggleButton);
             this.Name = "MainForm";
             this.Text = "ImmerseAlert";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.ResumeLayout(false);

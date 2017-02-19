@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlarmForm));
             this.mainLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -38,7 +39,7 @@
             this.mainLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.mainLabel.Location = new System.Drawing.Point(0, 0);
             this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Size = new System.Drawing.Size(1176, 464);
+            this.mainLabel.Size = new System.Drawing.Size(1264, 681);
             this.mainLabel.TabIndex = 0;
             this.mainLabel.Text = "DANGER";
             this.mainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -48,10 +49,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(1176, 464);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.mainLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AlarmForm";
             this.Text = "ALARM - ImmerseAlert";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AlarmForm_FormClosing);
             this.ResumeLayout(false);
 
         }

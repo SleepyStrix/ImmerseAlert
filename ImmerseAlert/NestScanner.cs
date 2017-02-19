@@ -28,6 +28,7 @@ namespace ImmerseAlert
             Program.systemArmed = true;
             started = true;
             loopThread = new Thread(ScanLoop);
+            loopThread.IsBackground = true;
             loopThread.Start();
         }
 
@@ -80,7 +81,7 @@ namespace ImmerseAlert
                             {
                                 DateTimeOffset endTime = DateTimeOffset.Parse(lastEvent.end_time);
                                 //Invalidate camera events after 20 seconds.
-                                if (DateTimeOffset.UtcNow.Subtract(endTime.UtcDateTime).Seconds < 20f)
+                                if (DateTimeOffset.UtcNow.Subtract(endTime.UtcDateTime).Seconds < 20)
                                 {
                                     Console.WriteLine("cam motion:" + cam.last_event.has_motion);
                                     Console.WriteLine("cam sound:" + cam.last_event.has_sound);

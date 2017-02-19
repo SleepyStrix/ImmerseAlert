@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.Runtime.InteropServices;
 
 
 namespace ImmerseAlert
@@ -76,5 +77,22 @@ namespace ImmerseAlert
                 return true;
             }
         }
+        public static void EndProgram()
+        {
+            Application.Exit();
+        }
+
+        //------
+        //Force our way to the top! Even over fullscreen applications.
+        public static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+        private const UInt32 SWP_NOSIZE = 0x0001;
+        private const UInt32 SWP_NOMOVE = 0x0002;
+        public const UInt32 TOPMOST_FLAGS = SWP_NOMOVE | SWP_NOSIZE;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
+            int X, int Y, int cx, int cy, uint uFlags);
+        //------
     }
 }

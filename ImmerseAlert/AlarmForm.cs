@@ -16,6 +16,7 @@ namespace ImmerseAlert
     public partial class AlarmForm : Form
     {
         Thread keepFrontThread;
+        SoundPlayer alarmPlayer;
         public AlarmForm(string message)
         {
             InitializeComponent();
@@ -24,7 +25,10 @@ namespace ImmerseAlert
             mainLabel.Text = mainLabel.Text + "\n" + message;
             mainLabel.AccessibleDescription = mainLabel.Text;
             mainLabel.AccessibleName = mainLabel.Text;
+            PlayAlarmSound();
+            GetAttention();
             keepFrontThread = new Thread(KeepAttention);
+            keepFrontThread.IsBackground = true;
             keepFrontThread.Start();
 
         }
@@ -36,8 +40,10 @@ namespace ImmerseAlert
             defaultAudioOut.Mute(false);
             defaultAudioOut.Volume = 100;
             //play alarm
-            SoundPlayer alarmPlayer = new SoundPlayer(@"C:\Users\Dan\Source\Repos\ImmerseAlert\ImmerseAlert\Audio\Alarm2.wav");
-            alarmPlayer.Play();
+            if (alarmPlayer == null) {
+                alarmPlayer = new SoundPlayer(Properties.Resources.Alarm2);
+            }
+            alarmPlayer.PlayLooping();
         }
 
         /// <summary>
@@ -69,19 +75,41 @@ namespace ImmerseAlert
         /// </summary>
         private void GetAttention()
         {
-            PlayAlarmSound();
+            /*try
+            {
+                PlayAlarmSound();
+            } catch
+            {
+
+            }*/
+            try
+            {
+                Program.SetWindowPos(this.Handle, Program.HWND_TOPMOST, 0, 0, 0, 0, Program.TOPMOST_FLAGS);
+            }catch
+            {
+
+            }
             Console.WriteLine("Forcing Alarm to front");
             try
             {
                 this.WindowState = FormWindowState.Minimized;
-                this.Show();
+                //this.Show();
                 this.WindowState = FormWindowState.Maximized;
-                this.Focus();
+                //this.TopMost = true;
+                //this.Focus();
                 this.BringToFront();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Force To Front Exception: " + e.GetBaseException().Message);
+            }
+        }
+
+        private void AlarmForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (alarmPlayer != null)
+            {
+                alarmPlayer.Stop();
             }
         }
     }
