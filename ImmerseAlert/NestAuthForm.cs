@@ -24,7 +24,7 @@ namespace ImmerseAlert
 
         private void NestAuthForm_Load(object sender, EventArgs e)
         {
-            new NestScanner().GetLocalToken();
+            new NestRester().GetLocalToken();
         }
 
         private void nestPinLinkButton_Click(object sender, EventArgs e)
@@ -35,30 +35,7 @@ namespace ImmerseAlert
 
         private void nestPinSubmit_Click(object sender, EventArgs e)
         {
-            string nestPIN = nestPinInputTextBox.Text;
-            if (string.IsNullOrWhiteSpace(nestPIN))
-            {
-                return;
-            }
-            using (WebClient authClient = new WebClient())
-            {
-                authClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                string uri = string.Format("https://api.home.nest.com/oauth2/access_token?client_id={0}&client_secret={1}&code={2}&grant_type=authorization_code",
-                    ConfigurationManager.AppSettings["Nest_Product_ID"], //Must exist in app settings.
-                    ConfigurationManager.AppSettings["Nest_Product_Secret"], //Must exist in app settings.
-                    nestPIN);
-                string data = string.Format("");
-                string result = authClient.UploadString(uri, data);
-                Console.WriteLine("Result: " + result);
-                NestTokenModel tokenResult = JsonConvert.DeserializeObject<NestTokenModel>(result);
-                tokenResult.timestamp = DateTimeOffset.UtcNow;
-                string tokenJson = JsonConvert.SerializeObject(tokenResult);
-                Console.WriteLine("Reserialized: " + result);
-                Properties.Settings.Default.NestTokenJson = tokenJson;
-                Properties.Settings.Default.Save();
-                new NestScanner().GetLocalToken();
-                Console.WriteLine("Saved");             
-            }
+           new NestRester().GetNewToken(nestPinInputTextBox.Text);
         }
     }
 }

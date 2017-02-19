@@ -14,6 +14,7 @@ namespace ImmerseAlert
         //private static bool alarmActive = false;
         private static NestScanner nestScanner;
         public static bool systemArmed = false;
+        public static bool hasToken;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,17 +26,12 @@ namespace ImmerseAlert
 
             nestScanner = new NestScanner();
             Application.Run(new MainForm());
-            //NestScanner scanner = new NestScanner();
-            //scanner.GetAllData();
-            //ShowNestAuth();
-            //ShowAlarm();
 
         }
 
         private static void ShowNestAuth()
         {
             Application.Run(new NestAuthForm());
-            //HttpWebRequest authReq =;
         }
 
         public static void ShowAlarm(string message)
@@ -46,12 +42,29 @@ namespace ImmerseAlert
             Application.Run(alarmForm);
         }
 
+        public static void TestHasToken()
+        {
+            if (string.IsNullOrWhiteSpace(new NestRester().GetLocalToken()))
+            {
+                hasToken = false;
+            } else
+            {
+                hasToken = true;
+            }
+        }
+
         /// <summary>
         /// Toggle the system on or off.
         /// </summary>
         /// <returns>true if system has been toggled on, false if off</returns>
         public static bool ArmSystemToggle()
         {
+            TestHasToken();
+            if (!hasToken)
+            {
+                return false;
+            }
+            //dont turn on system if no local token.
             Console.WriteLine("Arming system");
             if (nestScanner.Started)
             {
@@ -63,7 +76,5 @@ namespace ImmerseAlert
                 return true;
             }
         }
-
-
     }
 }

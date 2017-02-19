@@ -34,5 +34,65 @@ namespace ImmerseAlert.Properties {
                 this["NestTokenJson"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Co_Alarm {
+            get {
+                return ((bool)(this["Co_Alarm"]));
+            }
+            set {
+                this["Co_Alarm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Smoke_Alarm {
+            get {
+                return ((bool)(this["Smoke_Alarm"]));
+            }
+            set {
+                this["Smoke_Alarm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Motion_Alarm {
+            get {
+                return ((bool)(this["Motion_Alarm"]));
+            }
+            set {
+                this["Motion_Alarm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Sound_Alarm {
+            get {
+                return ((bool)(this["Sound_Alarm"]));
+            }
+            set {
+                this["Sound_Alarm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Person_Alarm {
+            get {
+                return ((bool)(this["Person_Alarm"]));
+            }
+            set {
+                this["Person_Alarm"] = value;
+            }
+        }
     }
 }
