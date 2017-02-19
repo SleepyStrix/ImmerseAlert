@@ -12,6 +12,8 @@ namespace ImmerseAlert
     static class Program
     {
         //private static bool alarmActive = false;
+        private static NestScanner nestScanner;
+        public static bool systemArmed = false;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -20,9 +22,12 @@ namespace ImmerseAlert
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            NestScanner scanner = new NestScanner();
-            scanner.GetAllData();
-            ShowNestAuth();
+
+            nestScanner = new NestScanner();
+            Application.Run(new MainForm());
+            //NestScanner scanner = new NestScanner();
+            //scanner.GetAllData();
+            //ShowNestAuth();
             //ShowAlarm();
 
         }
@@ -33,17 +38,32 @@ namespace ImmerseAlert
             //HttpWebRequest authReq =;
         }
 
-        private static void ShowAlarm()
+        public static void ShowAlarm(string message)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(60000);
             //alarmActive = true;
-            AlarmForm alarmForm = new AlarmForm();
+            AlarmForm alarmForm = new AlarmForm(message);
             Application.Run(alarmForm);
         }
 
-        private static void ScanLoop()
+        /// <summary>
+        /// Toggle the system on or off.
+        /// </summary>
+        /// <returns>true if system has been toggled on, false if off</returns>
+        public static bool ArmSystemToggle()
         {
-
+            Console.WriteLine("Arming system");
+            if (nestScanner.Started)
+            {
+                nestScanner.Stop();
+                return false;
+            } else
+            {
+                nestScanner.Start();
+                return true;
+            }
         }
+
+
     }
 }

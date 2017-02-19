@@ -1,6 +1,6 @@
 ﻿namespace ImmerseAlert
 {
-    partial class AlarmForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainLabel = new System.Windows.Forms.Label();
+            this.armToggleButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // mainLabel
+            // armToggleButton
             // 
-            this.mainLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 128F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.mainLabel.Location = new System.Drawing.Point(0, 0);
-            this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Size = new System.Drawing.Size(1176, 464);
-            this.mainLabel.TabIndex = 0;
-            this.mainLabel.Text = "DANGER";
-            this.mainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.armToggleButton.Location = new System.Drawing.Point(268, 193);
+            this.armToggleButton.Name = "armToggleButton";
+            this.armToggleButton.Size = new System.Drawing.Size(135, 66);
+            this.armToggleButton.TabIndex = 0;
+            this.armToggleButton.Text = "Arm System";
+            this.armToggleButton.UseVisualStyleBackColor = true;
+            this.armToggleButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // AlarmForm
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(1176, 464);
-            this.Controls.Add(this.mainLabel);
-            this.Name = "AlarmForm";
-            this.Text = "ALARM - ImmerseAlert";
+            this.ClientSize = new System.Drawing.Size(694, 425);
+            this.Controls.Add(this.armToggleButton);
+            this.Name = "MainForm";
+            this.Text = "ImmerseAlert";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label mainLabel;
+        private System.Windows.Forms.Button armToggleButton;
     }
 }
-

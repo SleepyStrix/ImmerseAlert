@@ -44,8 +44,8 @@ namespace ImmerseAlert
             {
                 authClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 string uri = string.Format("https://api.home.nest.com/oauth2/access_token?client_id={0}&client_secret={1}&code={2}&grant_type=authorization_code",
-                    ConfigurationManager.AppSettings["Nest_Product_ID"],
-                    ConfigurationManager.AppSettings["Nest_Product_Secret"],
+                    ConfigurationManager.AppSettings["Nest_Product_ID"], //Must exist in app settings.
+                    ConfigurationManager.AppSettings["Nest_Product_Secret"], //Must exist in app settings.
                     nestPIN);
                 string data = string.Format("");
                 string result = authClient.UploadString(uri, data);

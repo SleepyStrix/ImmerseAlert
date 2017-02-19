@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,28 +16,36 @@ namespace ImmerseAlert
     public partial class AlarmForm : Form
     {
         Thread keepFrontThread;
-        public AlarmForm()
+        public AlarmForm(string message)
         {
             InitializeComponent();
-
             Console.WriteLine("ALARM FORM STARTED");
-            PlayAlarmSound();
+            //PlayAlarmSound();
+            mainLabel.Text = mainLabel.Text + "\n" + message;
+            mainLabel.AccessibleDescription = mainLabel.Text;
+            mainLabel.AccessibleName = mainLabel.Text;
+            /*this.AccessibleName = mainLabel.Text;
+            this.AccessibleDescription = mainLabel.Text;*/
             //start thread forcing form to front
-            keepFrontThread = new Thread(KeepFront);
+            keepFrontThread = new Thread(KeepAttention);
             keepFrontThread.Start();
 
         }
 
         private void PlayAlarmSound()
         {
-            SoundPlayer alarmPlayer = new SoundPlayer(@"C:\Users\Dan\Source\Repos\ImmerseAlert\ImmerseAlert\Audio\Alarm1.wav");
-            alarmPlayer.PlayLooping();
+            //maximize audio volume
+            CoreAudioDevice defaultAudioOut = new CoreAudioController().DefaultPlaybackDevice;
+            defaultAudioOut.Volume = 100;
+            //play alarm
+            SoundPlayer alarmPlayer = new SoundPlayer(@"C:\Users\Dan\Source\Repos\ImmerseAlert\ImmerseAlert\Audio\Alarm2.wav");
+            alarmPlayer.Play();
         }
 
         /// <summary>
         /// Looped in new thread to periodically force form to front.
         /// </summary>
-        private void KeepFront()
+        private void KeepAttention()
         {
             while (true)
             {
@@ -44,7 +53,7 @@ namespace ImmerseAlert
                 {
                     MethodInvoker mi = delegate ()
                     {
-                        ForceToFront();
+                        GetAttention();
                     };
                     this.Invoke(mi);
                 } catch (Exception e)
@@ -60,8 +69,9 @@ namespace ImmerseAlert
         /// Forces the form to the front.
         /// Ugly, but necessary to ensure alarm is noticed.
         /// </summary>
-        private void ForceToFront()
+        private void GetAttention()
         {
+            PlayAlarmSound();
             Console.WriteLine("Forcing Alarm to front");
             try
             {
