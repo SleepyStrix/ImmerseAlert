@@ -24,9 +24,6 @@ namespace ImmerseAlert
             mainLabel.Text = mainLabel.Text + "\n" + message;
             mainLabel.AccessibleDescription = mainLabel.Text;
             mainLabel.AccessibleName = mainLabel.Text;
-            /*this.AccessibleName = mainLabel.Text;
-            this.AccessibleDescription = mainLabel.Text;*/
-            //start thread forcing form to front
             keepFrontThread = new Thread(KeepAttention);
             keepFrontThread.Start();
 
@@ -36,6 +33,7 @@ namespace ImmerseAlert
         {
             //maximize audio volume
             CoreAudioDevice defaultAudioOut = new CoreAudioController().DefaultPlaybackDevice;
+            defaultAudioOut.Mute(false);
             defaultAudioOut.Volume = 100;
             //play alarm
             SoundPlayer alarmPlayer = new SoundPlayer(@"C:\Users\Dan\Source\Repos\ImmerseAlert\ImmerseAlert\Audio\Alarm2.wav");

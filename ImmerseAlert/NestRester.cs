@@ -101,7 +101,7 @@ namespace ImmerseAlert
                 Console.WriteLine("Reserialized: " + result);
                 Properties.Settings.Default.NestTokenJson = tokenJson;
                 Properties.Settings.Default.Save();
-                new NestRester().GetLocalToken();
+                GetLocalToken();
                 Console.WriteLine("Saved");
             }
         }

@@ -56,7 +56,7 @@ namespace ImmerseAlert
                 if (nestResponse.devices != null)
                 {
                     if(nestResponse.devices.smoke_co_alarms != null && nestResponse.devices.smoke_co_alarms.Count > 0)
-                    {
+                    {                        
                         foreach (NestProtect np in nestResponse.devices.smoke_co_alarms.Values)
                         {
                             Console.WriteLine("co alarm state:" + np.co_alarm_state);
@@ -67,6 +67,37 @@ namespace ImmerseAlert
                             } else if (np.co_alarm_state.Equals("emergency"))
                             {
                                 Program.ShowAlarm("HIGH CO LEVEL.\nMOVE TO SAFETY.");
+                            }
+                        }
+                    }
+
+                    if (nestResponse.devices.cameras != null && nestResponse.devices.cameras.Count > 0)
+                    {
+                        foreach (NestCam cam in nestResponse.devices.cameras.Values)
+                        {
+                            CamEvent lastEvent = cam.last_event;
+                            if (lastEvent != null)
+                            {
+                                DateTimeOffset endTime = DateTimeOffset.Parse(lastEvent.end_time);
+                                //Invalidate camera events after 20 seconds.
+                                if (DateTimeOffset.UtcNow.Subtract(endTime.UtcDateTime).Seconds < 20f)
+                                {
+                                    Console.WriteLine("cam motion:" + cam.last_event.has_motion);
+                                    Console.WriteLine("cam sound:" + cam.last_event.has_sound);
+                                    Console.WriteLine("cam person:" + cam.last_event.has_person);
+                                    if (Properties.Settings.Default.Person_Alarm && cam.last_event.has_person)
+                                    {
+                                        Program.ShowAlarm("CAMERA DETECTED PERSON");
+                                    }
+                                    else if (Properties.Settings.Default.Motion_Alarm && cam.last_event.has_motion)
+                                    {
+                                        Program.ShowAlarm("CAMERA DETECTED MOTION");
+                                    }
+                                    else if (Properties.Settings.Default.Sound_Alarm && cam.last_event.has_sound)
+                                    {
+                                        Program.ShowAlarm("CAMERA DETECTED SOUND");
+                                    }
+                                }
                             }
                         }
                     }
