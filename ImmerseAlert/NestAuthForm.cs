@@ -29,13 +29,14 @@ namespace ImmerseAlert
 
         private void nestPinLinkButton_Click(object sender, EventArgs e)
         {
-            string pinGetUri = ConfigurationManager.AppSettings["Nest_Product_Authorization_URL"]; //Must exist in app settings.
+            string pinGetUri = ConfigurationManager.AppSettings["Nest_Product_Authorization_URL"]; //Must exist in appSettings.
             Process.Start(pinGetUri);
         }
 
         private void nestPinSubmit_Click(object sender, EventArgs e)
         {
-           new NestRester().GetNewToken(nestPinInputTextBox.Text);
+            new NestRester().GetNewToken(nestPinInputTextBox.Text);
+            this.Close();
         }
     }
 }
