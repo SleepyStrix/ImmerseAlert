@@ -20,6 +20,8 @@ namespace ImmerseAlert
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            NestScanner scanner = new NestScanner();
+            scanner.GetAllData();
             ShowNestAuth();
             //ShowAlarm();
 
@@ -37,6 +39,11 @@ namespace ImmerseAlert
             //alarmActive = true;
             AlarmForm alarmForm = new AlarmForm();
             Application.Run(alarmForm);
+        }
+
+        private static void ScanLoop()
+        {
+
         }
     }
 }

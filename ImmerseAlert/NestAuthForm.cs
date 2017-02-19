@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.Configuration;
 using System.Diagnostics;
+using ImmerseAlert.Models;
+using Newtonsoft.Json;
 
 namespace ImmerseAlert
 {
@@ -22,6 +24,7 @@ namespace ImmerseAlert
 
         private void NestAuthForm_Load(object sender, EventArgs e)
         {
+            new NestScanner().GetLocalToken();
         }
 
         private void nestPinLinkButton_Click(object sender, EventArgs e)
@@ -47,6 +50,14 @@ namespace ImmerseAlert
                 string data = string.Format("");
                 string result = authClient.UploadString(uri, data);
                 Console.WriteLine("Result: " + result);
+                NestTokenModel tokenResult = JsonConvert.DeserializeObject<NestTokenModel>(result);
+                tokenResult.timestamp = DateTimeOffset.UtcNow;
+                string tokenJson = JsonConvert.SerializeObject(tokenResult);
+                Console.WriteLine("Reserialized: " + result);
+                Properties.Settings.Default.NestTokenJson = tokenJson;
+                Properties.Settings.Default.Save();
+                new NestScanner().GetLocalToken();
+                Console.WriteLine("Saved");             
             }
         }
     }
