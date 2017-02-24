@@ -1,4 +1,4 @@
-[Check it out on Devpost for videos and screenshots!] (http://devpost.com/software/immersealert)
+#[See videos and screenshots on Devpost!] (http://devpost.com/software/immersealert)
 
 # ImmerseAlert
 Smart-home safety software for gamers, mitigating the risks of immersive/VR gaming.
@@ -38,4 +38,7 @@ Designing for intentional unpleasantness and annoyance where necessary.
 ## What's next for ImmerseAlert
 Everything I wrote for **ImmerseAlert** is open-source, free, and will stay that way.
 _Life-saving-anything should be free._
-I'd like someone to fork it as I won't normally have much time for this in the foreseeable future.
+I'd like someone to fork it as I won't normally have much time for this in the foreseeable future
+
+## Forking
+I've included keys/urls for an existing Nest product in NestApi.config, but you are encouraged to create your own product at [developers.nest.com](http://developers.nest.com/) and use your product's keys/urls instead if forking.
