@@ -37,7 +37,9 @@ namespace ImmerseAlert
 
         public static void ShowAlarm(string message)
         {
-            //Thread.Sleep(30000);
+#if DEBUG
+            Thread.Sleep(20000);
+#endif
             AlarmForm alarmForm = new AlarmForm(message);
             Application.Run(alarmForm);
         }
